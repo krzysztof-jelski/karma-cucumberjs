@@ -18,7 +18,13 @@
     "cucumber"
   ],
   "author": "Omar Gonzalez",
+  "contributors": [
+      "Krzysztof Jelski"
+  ],
   "license": "MIT",
+  "dependencies": {
+    "cucumber": "0.4.0"
+  },
   "devDependencies": {
     "grunt": "~0.4.4",
     "karma": "~0.12.0",

@@ -11,7 +11,7 @@ module.exports = function (grunt) {
       jshint: ['source/**/*.js'],
 
       requirejs_dependencies: [
-        '../vendor/cucumber.js',
+        '../node_modules/cucumber/release/cucumber.js',
         '../vendor/jquery-1.10.1.min.js',
         '../components/requirejs/require'
       ],
@@ -30,7 +30,7 @@ module.exports = function (grunt) {
       jasmine: {
         configFile: "karma.conf.js",
         singleRun: true,
-        browsers: ["Chrome", "Firefox", "Safari"]
+        browsers: ["Chrome", "Firefox"]
       },
 
       cuke_once: {
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
           baseUrl: './source',
           deps: "<%= files.requirejs_dependencies %>",
           name: 'main',
-          optimize: 'uglify2',
+          optimize: 'none',
           inlineText: false,
           isBuild: true,
           fileExclusionRegExp: /^\.|\.md$/,
