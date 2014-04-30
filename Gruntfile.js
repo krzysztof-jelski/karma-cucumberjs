@@ -10,11 +10,6 @@ module.exports = function (grunt) {
 
       jshint: ['source/**/*.js'],
 
-      requirejs_dependencies: [
-        '../node_modules/cucumber/release/cucumber.js',
-        '../vendor/jquery-1.10.1.min.js',
-        '../components/requirejs/require'
-      ],
 
       watch_js: ['./source/**/*.js']
     },
@@ -57,7 +52,7 @@ module.exports = function (grunt) {
         options: {
           optimizeCss: false,
           baseUrl: './source',
-          deps: "<%= files.requirejs_dependencies %>",
+          include: ['../node_modules/requirejs/require.js'],
           name: 'main',
           optimize: 'none',
           inlineText: false,
