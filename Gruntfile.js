@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         browsers: ["Chrome"],
         files: "<%= files.karma_cucumber_files %>",
         plugins: ["karma-*", require("./lib/index")],
-        frameworks : ["jasmine","requirejs", "cucumberjs"]
+        frameworks : ["cucumberjs"]
       },
 
       cucumber: {
@@ -43,7 +43,7 @@ module.exports = function (grunt) {
         browsers: ["Chrome"],
         files: "<%= files.karma_cucumber_files %>",
         plugins: ["karma-*", require("./lib/index")],
-        frameworks : ["jasmine","requirejs", "cucumberjs"]
+        frameworks : ["cucumberjs"]
       }
     },
 
