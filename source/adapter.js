@@ -46,6 +46,12 @@
 
     return Adapter;
   });
+
+  global.__karma__.start = function () {
+    require(["adapter"], function (Adapter) {
+      Adapter().start();
+    });
+  };
 }(window));
 
 

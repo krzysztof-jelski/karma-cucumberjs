@@ -53,7 +53,7 @@ module.exports = function (grunt) {
           optimizeCss: false,
           baseUrl: './source',
           include: ['../node_modules/requirejs/require.js'],
-          name: 'main',
+          name: 'adapter',
           optimize: 'none',
           inlineText: false,
           isBuild: true,
