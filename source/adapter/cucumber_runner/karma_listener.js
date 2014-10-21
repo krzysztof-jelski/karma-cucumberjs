@@ -99,7 +99,7 @@
         if (scenarioSkippedStatus) {
           timeElapsed = 0;
         } else {
-          timeElapsed = new Date().getTime() - self.currentStep._time;
+          timeElapsed = new Date().getTime() - self.currentScenario._time;
         }
 
         return timeElapsed;

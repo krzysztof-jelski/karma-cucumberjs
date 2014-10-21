@@ -506,7 +506,7 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
       describe('when the scenario was not skipped', function () {
         beforeEach(function () {
           scenarioSkippedStatus = false;
-          karmaListener.currentStep = {
+          karmaListener.currentScenario = {
             _time: 200
           };
         });
