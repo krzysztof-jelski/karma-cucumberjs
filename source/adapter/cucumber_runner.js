@@ -68,6 +68,7 @@
 
       log: function log(message) {
         if (window.console && window.console.log) {
+          message = message.replace(/[\u0000-\u0008\u000B-\u000C\u000E-\u001F\uD800-\uDFFF\uFFFE-\uFFFF]/g, '');
           window.console.log(message);
         }
       },
