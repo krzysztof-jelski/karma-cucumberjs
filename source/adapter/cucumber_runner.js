@@ -68,6 +68,7 @@
 
       log: function log(message) {
         if (window.console && window.console.log) {
+          message = message.replace(/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/g, '');
           window.console.log(message);
         }
       },
