@@ -283,7 +283,8 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
           suite: ['feature name'],
           success: stepSuccessful,
           skipped: scenarioSkippedResult,
-          time: scenarioTimeElapsed
+          time: scenarioTimeElapsed,
+          netTime: scenarioTimeElapsed
         };
         expect(karma.result).toHaveBeenCalledWith(expectedResults);
       });

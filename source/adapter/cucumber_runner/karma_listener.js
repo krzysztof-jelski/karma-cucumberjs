@@ -63,7 +63,8 @@
           suite: [currentFeatureName],
           success: stepSuccessful,
           skipped: stepSkipped,
-          time: timeElapsed
+          time: timeElapsed,
+          netTime: timeElapsed
         });
       },
 
