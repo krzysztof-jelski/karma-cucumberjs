@@ -6,7 +6,7 @@
       currentFeature: null,
       scenarioSuccess: true,
       scenarioSkipped: false,
-      scenarioLog: [],
+      scenarioLog: {},
       totalSteps: 0,
       eventMap: null,
 
@@ -41,6 +41,9 @@
 
       beforeStep: function beforeStep(event) {
         self.currentStep = event.getPayloadItem('step');
+        if (!self.scenarioLog[self.currentStep.getName()]) {
+          self.scenarioLog[self.currentStep.getName()] = [];
+        }
       },
 
       stepResult: function stepResult(event) {
@@ -57,13 +60,23 @@
         var currentFeatureName = self.currentFeature.getName();
         var timeElapsed = self.getScenarioTimeElapsed(stepSkipped);
 
+        var log = [];
+
+        for (var stepName in self.scenarioLog) {
+          var errorLog = self.scenarioLog[stepName];
+          if (errorLog.length) {
+            log.push(stepName + '\n' + errorLog.join('\n\n'));
+          }
+        }
+
         karma.result({
           description: currentScenarioName,
-          log: self.scenarioLog,
+          log: log,
           suite: [currentFeatureName],
           success: stepSuccessful,
           skipped: stepSkipped,
-          time: timeElapsed
+          time: timeElapsed,
+          netTime: timeElapsed
         });
       },
 
@@ -85,11 +98,12 @@
 
           var errorLog = "";
           if (error.stack) {
-            errorLog = currentStepName + '\n' + error.stack;
+            errorLog = error.stack;
           } else {
-            errorLog = currentStepName + '\n' + error;
+            errorLog = error;
           }
-          self.scenarioLog.push(errorLog);
+
+          self.scenarioLog[currentStepName].push(''+errorLog);
         }
       },
 
@@ -98,7 +112,7 @@
         if (scenarioSkippedStatus) {
           timeElapsed = 0;
         } else {
-          timeElapsed = new Date().getTime() - self.currentStep._time;
+          timeElapsed = new Date().getTime() - self.currentScenario._time;
         }
 
         return timeElapsed;

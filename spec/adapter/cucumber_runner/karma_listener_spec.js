@@ -172,7 +172,7 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
       var event, step;
 
       beforeEach(function () {
-        step = helper.createSpyWithStubs('step event payload item', {});
+        step = helper.createSpyWithStubs('step event payload item', {getName: 'current step name'});
         event = helper.createSpyWithStubs('event', {getPayloadItem: step});
       });
 
@@ -283,7 +283,8 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
           suite: ['feature name'],
           success: stepSuccessful,
           skipped: scenarioSkippedResult,
-          time: scenarioTimeElapsed
+          time: scenarioTimeElapsed,
+          netTime: scenarioTimeElapsed
         };
         expect(karma.result).toHaveBeenCalledWith(expectedResults);
       });
@@ -390,8 +391,9 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
           stepResult.isPending.andReturn(false);
           stepResult.isSkipped.andReturn(false);
 
-          karmaListener.scenarioLog = helper.createSpyWithStubs('log array', {push: null});
+          karmaListener.scenarioLog = {};
           karmaListener.currentStep = helper.createSpyWithStubs('current step object', {getName: 'current step name'});
+          karmaListener.scenarioLog[karmaListener.currentStep.getName()] = helper.createSpyWithStubs('log array', {push: null});
 
           error = {};
           stepResult.getFailureException.andReturn(error);
@@ -417,7 +419,7 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
           it('adds an entry to the scenario log with the step name and stack error', function () {
             karmaListener.checkStepFailure(stepResult);
 
-            expect(karmaListener.scenarioLog.push).toHaveBeenCalledWith('current step name\nan error stack trace');
+            expect(karmaListener.scenarioLog[karmaListener.currentStep.getName()].push).toHaveBeenCalledWith('an error stack trace');
           });
         });
 
@@ -429,7 +431,7 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
           it('adds an entry to the scenario log with the step name and the error.toString()', function () {
             karmaListener.checkStepFailure(stepResult);
 
-            expect(karmaListener.scenarioLog.push).toHaveBeenCalledWith('current step name\n[object Object]');
+            expect(karmaListener.scenarioLog[karmaListener.currentStep.getName()].push).toHaveBeenCalledWith('[object Object]');
           });
         });
       });
@@ -505,7 +507,7 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
       describe('when the scenario was not skipped', function () {
         beforeEach(function () {
           scenarioSkippedStatus = false;
-          karmaListener.currentStep = {
+          karmaListener.currentScenario = {
             _time: 200
           };
         });

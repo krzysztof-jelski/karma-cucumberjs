@@ -68,6 +68,7 @@
 
       log: function log(message) {
         if (window.console && window.console.log) {
+          message = message.replace(/\033\[[0-9;]*m/g, '');
           window.console.log(message);
         }
       },
