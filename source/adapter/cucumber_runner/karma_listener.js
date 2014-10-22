@@ -63,7 +63,10 @@
         var log = [];
 
         for (var stepName in self.scenarioLog) {
-            log.push(stepName + '\n' + self.scenarioLog[stepName].join('\n\n'));
+          var errorLog = self.scenarioLog[stepName];
+          if (errorLog.length) {
+            log.push(stepName + '\n' + errorLog.join('\n\n'));
+          }
         }
 
         karma.result({
