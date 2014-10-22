@@ -172,7 +172,7 @@ define(['source/adapter/cucumber_runner/karma_listener', 'spec/support/helper'],
       var event, step;
 
       beforeEach(function () {
-        step = helper.createSpyWithStubs('step event payload item', {});
+        step = helper.createSpyWithStubs('step event payload item', {getName: 'current step name'});
         event = helper.createSpyWithStubs('event', {getPayloadItem: step});
       });
 

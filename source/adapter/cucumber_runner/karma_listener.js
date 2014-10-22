@@ -41,8 +41,8 @@
 
       beforeStep: function beforeStep(event) {
         self.currentStep = event.getPayloadItem('step');
-        if (!self.scenarioLog[self.currentStep]) {
-          self.scenarioLog[self.currentStep] = [];
+        if (!self.scenarioLog[self.currentStep.getName()]) {
+          self.scenarioLog[self.currentStep.getName()] = [];
         }
       },
 
